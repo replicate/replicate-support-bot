@@ -1,0 +1,23 @@
+{
+  "name": "replicate-support-gpt-bot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Pwntus/replicate-support-gpt-bot.git",
+  "author": "Pwntus <pontus.edvard@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "ts-node src/index.ts"
+  },
+  "dependencies": {
+    "@discordjs/core": "^0.5.2",
+    "@supabase/supabase-js": "^2.20.0",
+    "cheerio": "^1.0.0-rc.12",
+    "dotenv": "^16.0.3",
+    "gpt3-tokenizer": "^1.1.5",
+    "openai": "^3.2.1"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4"
+  }
+}
