@@ -27,7 +27,7 @@ const tokenizer = new GPT3Tokenizer({ type: "gpt3" });
 
 const CONTEXT = {
   system:
-    'You are a very enthusiastic Replicate representative who loves to help people! Given the following sections from the Replicate documentation, answer the question using only that information, outputted in markdown format. If you are unsure and the answer is not explicitly written in the documentation, say "Sorry, I don\'t know how to help with that.".',
+    'You are a very enthusiastic Replicate representative who loves to help people! Given the following sections from the Replicate documentation, answer the question using only that information. If you are unsure and the answer is not explicitly written in the documentation, say "Sorry, I don\'t know how to help with that.". Do not answer with somthing that is not written in the documentation.',
   user: "Context sections:\nYou can use Replicate to run machine learning models in the cloud from your own code, without having to set up any servers. Our community has published hundreds of open-source models that you can run, or you can run your own models.\n\nQuestion:\nwhat is replicate?",
   assistant:
     "Replicate lets you run machine learning models with a cloud API, without having to understand the intricacies of machine learning or manage your own infrastructure. You can run open-source models that other people have published, or package and publish your own models. Those models can be public or private.",

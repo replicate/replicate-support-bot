@@ -7,6 +7,8 @@ import {
   GatewayIntentBits,
   ChannelType,
   Client,
+  ComponentType,
+  ButtonStyle,
 } from "@discordjs/core";
 
 import { think } from "./brain";
@@ -56,7 +58,7 @@ client.on(GatewayDispatchEvents.ThreadCreate, async ({ data: thread, api }) => {
 
   if (!message?.content) return;
 
-  const question = `${thread.name} ${message.content}`;
+  const question = `Title: ${thread.name}. ${message.content}`;
 
   // Think of an answer to the message
   const answer = await think(question);
@@ -64,22 +66,73 @@ client.on(GatewayDispatchEvents.ThreadCreate, async ({ data: thread, api }) => {
 
   console.log(`--- answer: ${answer}`);
 
-  // Reply to same thread
-  api.channels.createMessage(thread.id, { content: answer });
-
   // Take action if unanswered question
   if (/(Sorry|I don't know)/i.test(answer)) {
-    api.channels.createMessage(thread.id, {
-      content:
-        "I will notify a human. They are sometimes necessary, after all. <@207168156144238593>", // Pwntus Discord ID
-    });
     writeFileSync(
       "./unanswered-questions.txt",
       `thread: ${thread.name}\nmessage: (${message?.author.username}): ${message.content}\n_______________\n`
     );
-    console.log(
-      "--- failed to answer, a human was notified and original question logged"
-    );
+    console.log("--- failed to answer, question logged");
+
+    // Reply to same thread with answer
+  } else {
+    api.channels.createMessage(thread.id, {
+      content: answer,
+      embeds: [
+        {
+          title: "Hi, I'm a support bot",
+          description:
+            "I was designed to answer question with the Replicate online documentation as context. Your question will help improve my answers.",
+          color: 15844367,
+          thumbnail: {
+            url: "https://replicate.com/static/apple-touch-icon.1adc51db122a.png",
+          },
+          footer: {
+            icon_url:
+              "https://replicate.com/static/apple-touch-icon.1adc51db122a.png",
+            text: "— Replicate SupportGPT",
+          },
+          fields: [
+            {
+              name: "In case of business inqueries",
+              value: "Send an email to team@replicate.com",
+              inline: true,
+            },
+          ],
+        },
+      ],
+      components: [
+        {
+          type: ComponentType.ActionRow,
+          components: [
+            {
+              type: ComponentType.Button,
+              style: ButtonStyle.Link,
+              label: "Documentation",
+              url: "https://replicate.com/docs",
+            },
+            {
+              type: ComponentType.Button,
+              style: ButtonStyle.Link,
+              label: "HTTP API",
+              url: "https://replicate.com/docs/reference/http",
+            },
+            {
+              type: ComponentType.Button,
+              style: ButtonStyle.Link,
+              label: "Pricing",
+              url: "https://replicate.com/pricing",
+            },
+            {
+              type: ComponentType.Button,
+              style: ButtonStyle.Link,
+              label: "Changelog",
+              url: "https://replicate.com/changelog",
+            },
+          ],
+        },
+      ],
+    });
   }
 });
 
