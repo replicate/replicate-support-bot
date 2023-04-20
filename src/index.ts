@@ -82,7 +82,7 @@ client.on(GatewayDispatchEvents.ThreadCreate, async ({ data: thread, api }) => {
         {
           title: "Hi, I'm a support bot",
           description:
-            "I was designed to answer question with the Replicate online documentation as context. Your question will help improve my answers.",
+            "I was designed to answer question with the Replicate online documentation as context. I might make mistakes, but your question will help improve my answers.",
           color: 15844367,
           thumbnail: {
             url: "https://replicate.com/static/apple-touch-icon.1adc51db122a.png",
@@ -90,8 +90,9 @@ client.on(GatewayDispatchEvents.ThreadCreate, async ({ data: thread, api }) => {
           footer: {
             icon_url:
               "https://replicate.com/static/apple-touch-icon.1adc51db122a.png",
-            text: "— Replicate SupportGPT",
+            text: "— Replicare support bot",
           },
+          /*
           fields: [
             {
               name: "In case of business inqueries",
@@ -99,6 +100,7 @@ client.on(GatewayDispatchEvents.ThreadCreate, async ({ data: thread, api }) => {
               inline: true,
             },
           ],
+          */
         },
       ],
       components: [

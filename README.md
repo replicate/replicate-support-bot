@@ -1,8 +1,8 @@
-# SupportGPT
+# Replicare bot
 
 A Discord bot that answers questions about [Replicate](https://replicate.com). Use this to make ChatGPT answer questions based on **your** documentation.
 
-![Replicate SupportGPT](./demo.gif)
+![Replicare](./demo.gif)
 
 ## 1. How it works
 

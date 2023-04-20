@@ -1,8 +1,8 @@
 {
-  "name": "replicate-support-gpt-bot",
+  "name": "replicate-replicare-bot",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "https://github.com/Pwntus/replicate-support-gpt-bot.git",
+  "repository": "https://github.com/replicate/replicate-replicare-bot.git",
   "author": "Pwntus <pontus.edvard@gmail.com>",
   "license": "MIT",
   "scripts": {
