@@ -70,7 +70,8 @@ client.on(GatewayDispatchEvents.ThreadCreate, async ({ data: thread, api }) => {
   if (/(Sorry|I don't know)/i.test(answer)) {
     writeFileSync(
       "./unanswered-questions.txt",
-      `thread: ${thread.name}\nmessage: (${message?.author.username}): ${message.content}\n_______________\n`
+      `thread: ${thread.name}\nmessage: (${message?.author.username}): ${message.content}\n_______________\n`,
+      { flag: "a" }
     );
     console.log("--- failed to answer, question logged");
 
