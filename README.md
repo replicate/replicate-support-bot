@@ -14,7 +14,7 @@ This app is powered by:
 
 ## 2. Setup vector database (Supabase)
 
-se supports vectors in their PostgreSQL database. Create an account and execute the following queries:
+Supabase supports vectors in their PostgreSQL database. Create an account and execute the following queries:
 
 Enable the vector extension:
 

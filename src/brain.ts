@@ -68,7 +68,7 @@ export const think = async (question: string) => {
       tokenCount += encoded.text.length;
 
       // Limit context tokens
-      if (tokenCount > 8192) {
+      if (tokenCount > 4096) {
         console.log(`--- brain: previous token count (${prevTokenCount})`);
         break;
       }
