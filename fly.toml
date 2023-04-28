@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for replicate-replicare-bot on 2023-04-26T18:24:05+03:00
+# fly.toml app configuration file generated for replicate-support-bot on 2023-04-29T02:49:21+03:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = "replicate-replicare-bot"
+app = "replicate-support-bot"
 kill_signal = "SIGINT"
 kill_timeout = 5
 primary_region = "lax"
