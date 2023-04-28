@@ -1,6 +1,8 @@
-# Replicare bot
+# Replicate support bot
 
 A Discord bot that answers questions about [Replicate](https://replicate.com). Use this to make ChatGPT answer questions based on **your** documentation.
+
+[Read the blog post](https://aurdal.group/blog/make-a-chatgpt-discord-bot-answer-questions-about-your-own-documentation/) for more details on how this app was built.
 
 ![Replicare](./demo.gif)
 
