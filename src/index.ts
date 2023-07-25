@@ -91,7 +91,7 @@ client.on(GatewayDispatchEvents.ThreadCreate, async ({ data: thread, api }) => {
           footer: {
             icon_url:
               "https://replicate.com/static/apple-touch-icon.1adc51db122a.png",
-            text: "— Replicare support bot",
+            text: "— Replicate support bot",
           },
           /*
           fields: [
