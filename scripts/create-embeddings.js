@@ -4,7 +4,7 @@ const { Configuration, OpenAIApi } = require("openai");
 const { createClient } = require("@supabase/supabase-js");
 
 // Embeddings document maximum size
-const DOCUMENT_SIZE = 1000;
+const DOCUMENT_SIZE = 1100;
 
 const openai = new OpenAIApi(
   new Configuration({
@@ -42,19 +42,23 @@ const main = async () => {
     const urls = [
       "https://replicate.com/home",
       "https://replicate.com/docs",
+      "https://replicate.com/docs/get-started/nodejs",
       "https://replicate.com/docs/get-started/python",
       "https://replicate.com/docs/get-started/nextjs",
+      "https://replicate.com/docs/get-started/swiftui",
       "https://replicate.com/docs/get-started/discord-bot",
-      "https://replicate.com/docs/how-does-replicate-work",
-      "https://replicate.com/docs/guides/fine-tune-a-language-model",
-      "https://replicate.com/docs/guides/get-a-gpu-machine",
+      "https://hexdocs.pm/replicate/readme.html",
       "https://replicate.com/docs/guides/push-a-model",
+      "https://replicate.com/docs/how-does-replicate-work#private-models",
+      "https://replicate.com/docs/guides/fine-tune-a-language-model",
+      "https://replicate.com/docs/guides/fine-tune-an-image-model",
+      "https://replicate.com/docs/guides/get-a-gpu-machine",
       "https://replicate.com/docs/guides/push-stable-diffusion",
-      "https://replicate.com/docs/guides/push-a-transformers-model",
-      "https://replicate.com/docs/reference/examples",
+      "https://raw.githubusercontent.com/replicate/setup-cog/main/README.md",
+      "https://replicate.com/docs/how-does-replicate-work",
+      "https://replicate.com/showcase",
       "https://replicate.com/docs/reference/client-libraries",
       "https://replicate.com/docs/reference/http",
-      "https://replicate.com/docs/troubleshooting",
       "https://replicate.com/about",
       "https://replicate.com/pricing",
       "https://replicate.com/blog/hello-world",
@@ -75,6 +79,13 @@ const main = async () => {
       "https://replicate.com/blog/llama-roundup",
       "https://replicate.com/blog/fine-tune-alpaca-with-lora",
       "https://replicate.com/blog/language-models",
+      "https://replicate.com/blog/autocog",
+      "https://replicate.com/blog/language-model-roundup",
+      "https://replicate.com/blog/new-status-page",
+      "https://replicate.com/blog/turn-your-llm-into-a-poet",
+      "https://replicate.com/blog/llama-2-roundup",
+      "https://replicate.com/blog/fine-tune-llama-2",
+      "https://replicate.com/blog/run-llama-locally",
       "https://replicate.com/changelog",
     ];
     const documents = await getDocuments(urls);

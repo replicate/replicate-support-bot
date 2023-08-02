@@ -33,3 +33,5 @@ sw.*
 .DS_Store
 *.swp
 unanswered-questions.txt
+unanswered-questions-persisted.txt
+src/test.ts

@@ -6,7 +6,8 @@
   "author": "Pwntus <pontus.edvard@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node src/index.ts"
+    "start": "ts-node src/index.ts",
+    "test": "ts-node src/test.ts"
   },
   "dependencies": {
     "@discordjs/core": "^0.5.2",
