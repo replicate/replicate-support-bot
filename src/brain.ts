@@ -27,8 +27,8 @@ const tokenizer = new GPT3Tokenizer({ type: "gpt3" });
 
 const CONTEXT = {
   system:
-    'You are a very enthusiastic Replicate representative who loves to help people! Given the following REPLICATE CONTEXT from the Replicate documentation, answer the QUESTION using only that information or any previous messages. If you are unsure and the answer is not explicitly written in the documentation, say "Sorry, I don\'t know how to help with that.".',
-  user: "REPLICATE CONTEXT:\nYou can use Replicate to run machine learning models in the cloud from your own code, without having to set up any servers. Our community has published hundreds of open-source models that you can run, or you can run your own models.\n\nQUESTION:\nwhat is replicate?",
+    'You are a very enthusiastic Replicate representative who loves to help people! Given the following CONTEXT from the Replicate documentation, answer the QUESTION using only that information or any previous messages. If you are unsure and the answer is not explicitly written in the documentation, say "Sorry, I don\'t know how to help with that.".',
+  user: "CONTEXT:\nYou can use Replicate to run machine learning models in the cloud from your own code, without having to set up any servers. Our community has published hundreds of open-source models that you can run, or you can run your own models.\n\nQUESTION:\nwhat is replicate?",
   assistant:
     "Replicate lets you run machine learning models with a cloud API, without having to understand the intricacies of machine learning or manage your own infrastructure. You can run open-source models that other people have published, or package and publish your own models. Those models can be public or private.",
 };
@@ -112,7 +112,7 @@ export const think = async (conversation: any[] = []) => {
 
       memory.push({
         role: "user",
-        content: `REPLICATE CONTEXT:\n${last_user_messages_context}\n\nQUESTION:\n${last_user_messages}`,
+        content: `CONTEXT:\n${last_user_messages_context}\n\nQUESTION:\n${last_user_messages}`,
       });
 
       memory.push({
@@ -126,7 +126,7 @@ export const think = async (conversation: any[] = []) => {
     // only add last message context if no memory
     if (memory.length <= 0) {
       const context = await generateContext(last_message?.content);
-      last_message_context = `REPLICATE CONTEXT:\n${context}\n\n`;
+      last_message_context = `CONTEXT:\n${context}\n\n`;
     }
 
     memory.push({

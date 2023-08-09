@@ -86,6 +86,10 @@ const main = async () => {
       "https://replicate.com/blog/llama-2-roundup",
       "https://replicate.com/blog/fine-tune-llama-2",
       "https://replicate.com/blog/run-llama-locally",
+      "https://replicate.com/blog/run-sdxl-with-an-api",
+      "https://replicate.com/blog/run-llama-2-with-an-api",
+      "https://replicate.com/blog/all-the-llamas",
+      "https://replicate.com/blog/fine-tune-sdxl",
       "https://replicate.com/changelog",
     ];
     const documents = await getDocuments(urls);
