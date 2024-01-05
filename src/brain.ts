@@ -1,26 +1,17 @@
 import dotenv from "dotenv";
+import fetch from "node-fetch";
 import { Configuration, OpenAIApi } from "openai";
-import { createClient } from "@supabase/supabase-js";
 import GPT3Tokenizer from "gpt3-tokenizer";
 
 dotenv.config();
 
 if (!process.env.OPENAI_API_KEY)
   throw new Error("Missing OPENAI_API_KEY in environment");
-if (!process.env.SUPABASE_URL)
-  throw new Error("Missing SUPABASE_URL in environment");
-if (!process.env.SUPABASE_KEY)
-  throw new Error("Missing SUPABASE_KEY in environment");
 
 const openai = new OpenAIApi(
   new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
   })
-);
-
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_KEY
 );
 
 const tokenizer = new GPT3Tokenizer({ type: "gpt3" });
@@ -35,25 +26,29 @@ const CONTEXT = {
 
 export const think = async (question: string) => {
   try {
-    // OpenAI recommends replacing newlines with spaces for best results
-    const input = question.replace(/\n/g, " ");
+    const response = await fetch(
+      "https://replicate-retriever.vercel.app/api/retrieve",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          text: question,
+          content_length: 1000,
+          limit: 20,
+        }),
+      }
+    );
+    const documents: { title: string; url: string; content: string }[] =
+      await response.json();
 
-    // Generate a one-time embedding for the question itself
-    const embeddingResponse = await openai.createEmbedding({
-      model: "text-embedding-ada-002",
-      input,
+    // Create deduplicated list of sources
+    const mapObj = new Map();
+    documents.forEach(({ title, url }) => {
+      mapObj.set(title, { title, url });
     });
-
-    const [{ embedding }] = embeddingResponse.data.data;
-
-    // Match embeddings with vector database
-    const { error, data: documents } = await supabase.rpc("match_documents", {
-      query_embedding: embedding,
-      similarity_threshold: 0.5, // configurable
-      match_count: 10,
-    });
-
-    if (error) throw new Error(error.message);
+    const sources = [...mapObj.values()];
 
     // Create context
     let tokenCount = 0;
@@ -77,11 +72,7 @@ export const think = async (question: string) => {
     }
 
     console.log(
-      `--- brain: ctx docs (${
-        documents.length
-      }), ctx docs scores (${documents.map(
-        (i: any) => i.similarity
-      )}, token count (${tokenCount})`
+      `--- brain: ctx docs (${documents.length}), token count (${tokenCount})`
     );
 
     // Generate ChatGPT messages context
@@ -114,11 +105,14 @@ export const think = async (question: string) => {
       n: 1,
     });
 
-    if (data.choices.length <= 0) return null;
+    if (data.choices.length <= 0) throw new Error("No response from LLM");
 
-    return data.choices[0].message?.content || null;
+    const answer = data.choices[0].message?.content || null;
+
+    return { answer, sources };
   } catch (e: any) {
     console.log(`--- brain think error: ${e.message}`);
     console.log(e);
+    return { answer: null, sources: null };
   }
 };

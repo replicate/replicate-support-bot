@@ -10,14 +10,14 @@
   },
   "dependencies": {
     "@discordjs/core": "^0.5.2",
-    "@supabase/supabase-js": "^2.20.0",
-    "cheerio": "^1.0.0-rc.12",
     "dotenv": "^16.0.3",
     "gpt3-tokenizer": "^1.1.5",
+    "node-fetch": "2",
     "openai": "^3.2.1"
   },
   "devDependencies": {
-    "ts-node": "^10.9.1",
-    "typescript": "^5.0.4"
+    "@types/node-fetch": "^2.6.10",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
   }
 }

@@ -35,3 +35,5 @@ sw.*
 unanswered-questions.txt
 unanswered-questions-persisted.txt
 src/test.ts
+.yarn
+.yarnrc.yml

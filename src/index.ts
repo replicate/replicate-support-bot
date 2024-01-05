@@ -45,6 +45,9 @@ client.on(GatewayDispatchEvents.ThreadCreate, async ({ data: thread, api }) => {
   const parent_thread: any = await api.threads.get(String(thread.parent_id));
   if (parent_thread.type !== ChannelType.GuildForum) return;
 
+  // Additional filter: parent name (in case of multiple forums)
+  if (parent_thread.name !== "help") return;
+
   // Get first message in thread
   const messages = await api.channels.getMessages(thread.id);
   if (messages.length <= 0) return;
@@ -61,7 +64,7 @@ client.on(GatewayDispatchEvents.ThreadCreate, async ({ data: thread, api }) => {
   const question = `Title: ${thread.name}. ${message.content}`;
 
   // Think of an answer to the message
-  const answer = await think(question);
+  const { answer, sources } = await think(question);
   if (!answer) return;
 
   console.log(`--- answer: ${answer}`);
@@ -77,8 +80,13 @@ client.on(GatewayDispatchEvents.ThreadCreate, async ({ data: thread, api }) => {
 
     // Reply to same thread with answer
   } else {
+    const content = `${answer}\n\nSources:\n${sources
+      .slice(0, 3)
+      .map(({ title, url }) => `[${title}](${url})`)
+      .join("\n")}\n\n`;
+
     api.channels.createMessage(thread.id, {
-      content: answer,
+      content,
       embeds: [
         {
           title: "Hi, I'm a support bot",
